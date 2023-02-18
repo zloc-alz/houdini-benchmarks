@@ -11,7 +11,6 @@ export default function Home({ sheetData }) {
   const headerRow = sheetData[0];
   const dataRows = sheetData.slice(1);
 
-
   return (
     <>
       <Head>
@@ -27,12 +26,18 @@ export default function Home({ sheetData }) {
         <div>
           {sheetData && (
             <div className="sheetData">
+              <p>
+                Header Row
+              </p>
               {sheetData[0]}
+              <p>
+                Data Rows
+              </p>
               {
                 dataRows.map((row) => {
                   return (
                     <div>
-                      {row[0]}: {row[1]} : {row[2]}
+                      {row[0]}: {row[1]} : {row[2]} : {row[3]}
                     </div>
                   )
                 })
@@ -50,19 +55,13 @@ export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
-
   const sheets = google.sheets({ version: 'v4', auth });
-
-  const range = 'Sheet1!A:C';
-
+  const range = 'Sheet1!A:R';
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range,
   })
-  console.log('response:', response.data);;
-
   const sheetData = response.data.values;
-  console.log('sheetData:', sheetData);
 
   return {
     props: {
