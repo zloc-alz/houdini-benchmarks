@@ -37,9 +37,6 @@ export default function Home({ sheetData }) {
                   )
                 })
               }
-              {/* <div>
-                  {sheetData}
-                </div> */}
             </div>
           )
           }
