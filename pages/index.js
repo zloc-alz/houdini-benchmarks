@@ -7,7 +7,7 @@ import { google } from 'googleapis';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ sheetData }) {
-  console.log("sheetdata:", sheetData)
+  // console.log("sheetdata:", sheetData)
   const headerRow = sheetData[0];
   const dataRows = sheetData.slice(1);
 
@@ -29,7 +29,7 @@ export default function Home({ sheetData }) {
               <p>
                 Header Row
               </p>
-              {sheetData[0]}
+              {sheetData[0][2]}
               <p>
                 Data Rows
               </p>
@@ -37,7 +37,7 @@ export default function Home({ sheetData }) {
                 dataRows.map((row) => {
                   return (
                     <div>
-                      {row[0]}: {row[1]} : {row[2]} : {row[3]}
+                      {row[2]} &#x9;&#x9;&#x9; {row[3]} {row[4]} {row[5]} {row[6]} {row[7]} {row[8]}
                     </div>
                   )
                 })
@@ -55,8 +55,9 @@ export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
+  console.log(auth)
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'Sheet1!A:R';
+  const range = 'A:Z';
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range,
