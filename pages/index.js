@@ -51,7 +51,7 @@ export default function Home({ sheetData }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
@@ -68,5 +68,6 @@ export async function getServerSideProps() {
     props: {
       sheetData,
     },
+    revalidate: 10,
   };
 }
