@@ -51,11 +51,11 @@ export default function Home({ sheetData }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
-  console.log(auth)
+  // console.log(auth)
   const sheets = google.sheets({ version: 'v4', auth });
   const range = 'A:Z';
   const response = await sheets.spreadsheets.values.get({
