@@ -51,42 +51,42 @@ export default function Home({ sheetData }) {
   )
 }
 
-// export async function getStaticProps() {
-//   const auth = await google.auth.getClient({
-//     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-//   });
-//   // console.log(auth)
-//   const sheets = google.sheets({ version: 'v4', auth });
-//   const range = 'A:Z';
-//   const response = await sheets.spreadsheets.values.get({
-//     spreadsheetId: process.env.SHEET_ID,
-//     range,
-//   })
-//   const sheetData = response.data.values;
-
-//   return {
-//     props: {
-//       sheetData,
-//     },
-//     revalidate: 10,
-//   };
-// }
-
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const auth = await google.auth.getClient({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
+  // console.log(auth)
   const sheets = google.sheets({ version: 'v4', auth });
   const range = 'A:Z';
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range,
-  });
+  })
   const sheetData = response.data.values;
 
   return {
     props: {
       sheetData,
     },
+    revalidate: 10,
   };
 }
+
+// export async function getServerSideProps() {
+//   const auth = await google.auth.getClient({
+//     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+//   });
+//   const sheets = google.sheets({ version: 'v4', auth });
+//   const range = 'A:Z';
+//   const response = await sheets.spreadsheets.values.get({
+//     spreadsheetId: process.env.SHEET_ID,
+//     range,
+//   });
+//   const sheetData = response.data.values;
+
+//   return {
+//     props: {
+//       sheetData,
+//     },
+//   };
+// }
